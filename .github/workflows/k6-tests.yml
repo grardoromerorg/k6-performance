@@ -1,0 +1,14 @@
+name: k6 Performance Tests
+on:
+  workflow_dispatch:
+jobs:
+  k6-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install k6
+        uses: grafana/k6-action@v0.2.0
+        with:
+          version: 'latest'
+      - name: Run k6 tests
+        run: k6 run tests/*.js
