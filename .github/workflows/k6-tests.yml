@@ -7,10 +7,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup K6
         uses: grafana/setup-k6-action@v1
-      - name: Run local k6 test
-        uses: grafana/run-k6-action@v1
+      - name: Run local k6 tests
+        run: k6 run --out json=report.json tests/*.js
+      - name: Upload k6 report
+        uses: actions/upload-artifact@v3
         with:
-          path: tests/*.js
+          name: k6-report
+          path: report.json
